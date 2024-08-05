@@ -43,7 +43,7 @@ async def add_quiz_answer(message: Message, state: FSMContext):
             varinatlar[index] = value.text
         context = await state.get_data()
         data.add_quiz(
-            vik_id=context.get("id"),
+            vik_id=str(context.get("id")),
             question=quiz.question,
             tr_op=quiz.correct_option_id,
             op1=varinatlar[0],

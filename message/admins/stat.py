@@ -49,7 +49,7 @@ async def get_stat_vik(message: Message, state: FSMContext):
         user = data.get_user(i[0])
         if user:
             j += 1
-            vaqt = f"{i[3] // 3600:02}:{i[3] % 3600 // 60:02}:{i[3] % 3600 % 60:02}"
+            vaqt = f"{int(i[3] // 3600):02}:{int(i[3] % 3600 // 60):02}:{int(i[3] % 3600 % 60):02}"
             text += f"""
 
             <tr>

@@ -4,7 +4,7 @@ from aiogram.types import KeyboardButtonPollType
 user_menu = ReplyKeyboardBuilder()
 user_menu.button(text="❔ Test yechish")
 user_menu.button(text="📂 Foydali fayllar")
-user_menu.button(text="📊 Reyting")
+# user_menu.button(text="📊 Reyting")
 user_menu = user_menu.as_markup()
 user_menu.resize_keyboard = True
 user_menu.is_persistent = True

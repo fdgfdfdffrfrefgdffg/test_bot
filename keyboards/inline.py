@@ -1,4 +1,5 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+import data
 
 def channels_btn(channels):
     markup = InlineKeyboardBuilder()
@@ -19,7 +20,8 @@ def get_viks_btn(viks, admin=None):
             markup.button(text=i[1], callback_data=f"getvik:{i[0]}")
             markup.button(text="❌", callback_data=f"delvik:{i[0]}")
         else:
-            markup.button(text=i[1], callback_data=f"usergetvik:{i[0]}")
+            vik = data.get_vik(i[0])
+            markup.button(text=vik[0], callback_data=f"usergetvik:{i[0]}")
 
     markup.adjust(2)
     return markup.as_markup()
@@ -27,7 +29,8 @@ def get_viks_btn(viks, admin=None):
 def get_viks_for_reyting_btn(viks):
     markup = InlineKeyboardBuilder()
     for i in viks:
-        markup.button(text=i[1], callback_data=f"getvikreyting:{i[0]}")
+        vik = data.get_vik(i[0])
+        markup.button(text=vik[0], callback_data=f"reytinggetvik:{i[0]}")
     markup.adjust(2)
     return markup.as_markup()
 

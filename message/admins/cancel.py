@@ -8,4 +8,4 @@ async def cancel_answer(message: Message, state: FSMContext):
     await message.answer("Amallar bekor qilindi! Bosh menyudasiz!", reply_markup=keyboards.reply.admin_menu)
 
 async def empty(message: Message):
-    pass
+    await message.answer("Noto'g'ri buyruq!")

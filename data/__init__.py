@@ -96,7 +96,20 @@ def get_quizs_vik(vik_id):
 
 def get_results_test(test_id):
     queryset = c.execute("SELECT id, test_id, ball, time FROM results WHERE test_id=? ORDER BY ball DESC", (test_id, )).fetchall()
-    return sorted(queryset, key=lambda i: i[3])
+    sub_l = []
+    reyting = []
+    this_ball = 0
+    for i in queryset:
+        if this_ball != i[2]:
+            sub_l.sort(key=lambda i: i[3], reverse=False) 
+            reyting.extend(sub_l)
+            sub_l.clear()
+            this_ball = i[2]
+            sub_l.append(i)
+        elif this_ball == i[2]:
+            sub_l.append(i)
+    if sub_l: reyting.extend(sub_l)
+    return reyting
 
 def get_results():
     return c.execute("SELECT id, test_id, ball, time FROM results").fetchall()
@@ -105,7 +118,7 @@ def get_file_names():
     return c.execute("SELECT id, file_name FROM files ").fetchall()
 
 def get_viks_for_reyting(user_id):
-    return list(set(c.execute("SELECT vik_id FROM quizs WHERE id=?", (user_id, )).fetchall()))
+    return list(set(c.execute("SELECT test_id FROM results WHERE id=?", (user_id, )).fetchall()))
 
 def get_files_range(start, stop):
     return c.execute("SELECT id, file_name FROM files WHERE start <= id AND id <= stop").fetchall()
