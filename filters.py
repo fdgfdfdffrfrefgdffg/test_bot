@@ -9,6 +9,8 @@ class IsNotSubChannel(Filter):
     async def __call__(self, message: Message, bot: Bot):
         not_sub_channels = []
         for channel in CHANNELS:
+            if "instagram" in channel["url"]: 
+                continue
             status = await bot.get_chat_member(channel['id'], message.from_user.id)
             status = status.status
             if not (status in (ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.CREATOR, ChatMemberStatus.MEMBER)):

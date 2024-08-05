@@ -3,6 +3,7 @@ from aiogram.types import Message, PollAnswer
 from aiogram.fsm.context import FSMContext
 from datetime import timedelta
 from time import time
+from random import shuffle
 import data, keyboards, states
 
 
@@ -21,6 +22,7 @@ async def get_quiz_answer(poll: PollAnswer, bot: Bot, state: FSMContext):
     tests = context_data.get("tests")
     
     if tests:
+        shuffle(tests)
         test = tests[0]
         options = [i for i in [test[2], test[3], test[4], test[5], test[6], test[7]] if i]
 
@@ -41,17 +43,24 @@ async def get_quiz_answer(poll: PollAnswer, bot: Bot, state: FSMContext):
         context_data = await state.get_data()
         t = context_data.get("t")
         vik_id = context_data.get("vik_id")
-        f = len(data.get_quizs_vik(vik_id)) - t
+        len_quizs = len(data.get_quizs_vik(vik_id))
         s_time = context_data.get("s_time")
         save_time = time() - s_time
         vaqt = ""
         vaqt += str(int(save_time // 3600)).zfill(2) + ":"
         vaqt += str(int(save_time % 3600 // 60)).zfill(2) + ":"
         vaqt += str(int(save_time % 3600 % 60)).zfill(2)
+        matn = f"TEST TUGADI!\n\n✅ To'g'ri javoblar: {t} ta\n❔ Savollar soni: {len_quizs} ta\n⏰ Sarflangan vaqt: {vaqt}"
         
+        if t > 23: matn += "Darajangiz HSK 5 （高级）"
+        elif t > 18: matn += "Darajangiz HSK 4 （中级）"
+        elif t > 13: matn += "Darajangiz HSK 3 （中级）"
+        elif t > 8: matn += "Darajangiz HSK 2 （初级）"
+        elif t > 3: matn += "Darajangiz HSK 1 （初级）"
+
         await bot.send_message(
             chat_id=poll.user.id,
-            text=f"TEST TUGADI!\n\n✅ To'g'ri javoblar: {t} ta\n❌ Noto'g'ri javoblar: {f} ta\n⏰ Sarflangan vaqt: {vaqt}",
+            text=matn,
             reply_markup=keyboards.reply.user_menu
         )
         s_time = context_data.get("s_time")

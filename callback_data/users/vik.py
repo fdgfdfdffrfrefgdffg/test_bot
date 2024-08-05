@@ -3,6 +3,7 @@ from aiogram.fsm.context import FSMContext
 from asyncio import sleep
 from datetime import timedelta
 from time import time
+from random import shuffle
 import data, keyboards, states
 
 
@@ -38,6 +39,7 @@ async def next_test_answer(call: CallbackQuery, state: FSMContext):
     tests = context_data.get("tests")
     
     if tests:
+        shuffle(tests)
         test = tests[0]
         options = [i for i in [test[2], test[3], test[4], test[5], test[6], test[7]] if i]
 
@@ -65,8 +67,17 @@ async def next_test_answer(call: CallbackQuery, state: FSMContext):
         vaqt += str(int(save_time % 3600 // 60)).zfill(2) + ":"
         vaqt += str(int(save_time % 3600 % 60)).zfill(2)
         
+        matn = f"TEST TUGADI!\n\n✅ To'g'ri javoblar: {t} ta\n❔ Savollar soni: {len_quizs} ta\n⏰ Sarflangan vaqt: {vaqt}"
+        
+        if t > 23: matn += "Darajangiz HSK 5 （高级）"
+        elif t > 18: matn += "Darajangiz HSK 4 （中级）"
+        elif t > 13: matn += "Darajangiz HSK 3 （中级）"
+        elif t > 8: matn += "Darajangiz HSK 2 （初级）"
+        elif t > 3: matn += "Darajangiz HSK 1 （初级）"
+
+
         await call.message.answer(
-            text=f"TEST TUGADI!\n\n❓ Savollar soni: {len_quizs} ta\n✅ To'g'ri javoblar: {t} ta\n⏰ Sarflangan vaqt: {vaqt}",
+            text=matn,
             reply_markup=keyboards.reply.user_menu
         )
         s_time = context_data.get("s_time")
