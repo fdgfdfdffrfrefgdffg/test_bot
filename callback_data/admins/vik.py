@@ -1,6 +1,7 @@
 from aiogram.types import CallbackQuery, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 import data
+import asyncio
 import states
 import keyboards
 
@@ -22,6 +23,7 @@ async def get_vik_answer(call: CallbackQuery, state: FSMContext):
                 is_anonymous=False,
                 reply_markup=keyboards.inline.del_quiz_btn(test[0])
             )
+            await asyncio.sleep(3)
         await call.message.answer("✅ Testlarni yuborib bo'ldim!", reply_markup=keyboards.reply.vik_menu_admin)
     else:
         await call.message.answer("❗ Bu viktorinada savollar mavjud emas", reply_markup=keyboards.reply.vik_menu_admin)

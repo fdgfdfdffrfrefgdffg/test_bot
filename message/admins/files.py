@@ -16,7 +16,7 @@ async def get_files(message: Message, state: FSMContext):
                 caption="" + fayl[2],
                 reply_markup=keyboards.inline.del_fayl_btn(fayl[0])
             )
-            sleep(1)
+            await sleep(3)
         await message.answer("❗ Fayllarni yuborib bo'ldim", reply_markup=keyboards.reply.files_menu)
     else:
         await message.answer("❗ Bazaga hali fayllar qo'shilmagan!", reply_markup=keyboards.reply.files_menu)

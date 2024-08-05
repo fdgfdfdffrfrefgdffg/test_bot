@@ -17,6 +17,9 @@ async def not_sub_channel_answer(message: Message, bot: Bot, state: FSMContext):
             not_sub_channels.append(channel)
     
     await message.answer("Quydagi kanallarga obuna bo'ling!", reply_markup=keyboards.inline.channels_btn(not_sub_channels))
-    
+    await message.answer("Obuna bo'lgach pastdagi ✅ Tekshirish tugmasiga bosing.", reply_markup=keyboards.reply.check_join_btn)
 async def not_understand(message: Message):
     pass
+
+async def check_join_answer(message: Message):
+    await message.answer("Obuna bo'lganingiz uchun rahmat!", reply_markup=keyboards.reply.user_menu)

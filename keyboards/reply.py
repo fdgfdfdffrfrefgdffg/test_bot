@@ -58,3 +58,9 @@ add_quiz_menu.button(text="🚫 Bekor qilish")
 add_quiz_menu = add_quiz_menu.as_markup()
 add_quiz_menu.resize_keyboard = True
 add_quiz_menu.is_persistent = True
+
+check_join_btn = ReplyKeyboardBuilder()
+check_join_btn.button(text="✅ Tekshirish")
+check_join_btn = check_join_btn.as_markup()
+check_join_btn.resize_keyboard = True
+check_join_btn.is_persistent = True

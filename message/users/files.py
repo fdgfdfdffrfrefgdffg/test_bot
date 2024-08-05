@@ -13,7 +13,7 @@ async def get_files(message: Message):
                 fayl[1],
                 caption="" + fayl[2]
             )
-            await sleep(1)
+            await sleep(3)
         await message.answer("❗ Fayllarni yuborib bo'ldim", reply_markup=keyboards.reply.user_menu)
     else:
         await message.answer("❗ Bazaga hali fayllar qo'shilmagan!", reply_markup=keyboards.reply.user_menu)

@@ -23,5 +23,6 @@ router.message.register(sent.answer_sent, and_f(filters.IsAdmin(),  F.text == "�
 router.message.register(files.get_files, and_f(filters.IsAdmin(),  F.text == "📂 Fayllar"))
 router.message.register(files.add_file_answer, and_f(filters.IsAdmin(),  F.text == "➕ Fayl qo'shish"))
 router.message.register(vik.add_vik_quiz_answer, and_f(filters.IsAdmin(),  F.text == "➕ Test qo'shish"))
-router.message.register(stat.get_stat_vik, and_f(filters.IsAdmin(),  F.text == "v📊 Reyting"))
+router.message.register(stat.get_stat_vik, and_f(filters.IsAdmin(),  F.text == "📊 Reyting"))
+router.message.register(cancel.empty, filters.IsAdmin() )
 

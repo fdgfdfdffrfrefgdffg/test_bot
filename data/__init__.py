@@ -95,7 +95,7 @@ def get_quizs_vik(vik_id):
     return c.execute("SELECT id, question, op1, op2, op3, op4, op5, op6, tr_op FROM quizs WHERE vik_id=?", (vik_id, )).fetchall()
 
 def get_results_test(test_id):
-    queryset = c.execute("SELECT id, test_id, ball, time FROM results WHERE test_id=? ORDER BY DESC ball", (test_id, )).fetchall()
+    queryset = c.execute("SELECT id, test_id, ball, time FROM results WHERE test_id=? ORDER BY ball DESC", (test_id, )).fetchall()
     return sorted(queryset, key=lambda i: i[3])
 
 def get_results():
