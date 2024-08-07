@@ -66,7 +66,7 @@ check_join_btn.resize_keyboard = True
 check_join_btn.is_persistent = True
 
 choose_category = ReplyKeyboardBuilder()
-choose_category.button(text="Leksika")
+choose_category.button(text="Kitoblar")
 choose_category.button(text="Gramatika")
 choose_category.button(text="🚫 Bekor qilish")
 choose_category = choose_category.as_markup()
