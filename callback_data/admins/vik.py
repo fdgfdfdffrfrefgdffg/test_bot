@@ -9,7 +9,6 @@ async def get_vik_answer(call: CallbackQuery, state: FSMContext):
     vik_id = call.data.split(":")[1]
     tests = data.get_quizs_vik(vik_id)
     await state.update_data(id=vik_id)
-    print(tests)
     if tests:
         await call.message.answer("❓ Savollarni yuborib bo'lishimni kuting", reply_markup=ReplyKeyboardRemove())
         for test in tests:
@@ -23,7 +22,7 @@ async def get_vik_answer(call: CallbackQuery, state: FSMContext):
                 is_anonymous=False,
                 reply_markup=keyboards.inline.del_quiz_btn(test[0])
             )
-            await asyncio.sleep(3)
+            await asyncio.sleep(1.5)
         await call.message.answer("✅ Testlarni yuborib bo'ldim!", reply_markup=keyboards.reply.vik_menu_admin)
     else:
         await call.message.answer("❗ Bu viktorinada savollar mavjud emas", reply_markup=keyboards.reply.vik_menu_admin)

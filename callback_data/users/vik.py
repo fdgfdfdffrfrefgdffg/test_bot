@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from asyncio import sleep
 from datetime import timedelta
 from time import time
-from random import shuffle
+from random import choice
 import data, keyboards, states
 
 
@@ -39,8 +39,7 @@ async def next_test_answer(call: CallbackQuery, state: FSMContext):
     tests = context_data.get("tests")
     
     if tests:
-        shuffle(tests)
-        test = tests[0]
+        test = choice(tests)
         options = [i for i in [test[2], test[3], test[4], test[5], test[6], test[7]] if i]
 
         await call.message.answer_poll(

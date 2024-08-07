@@ -25,3 +25,7 @@ class IsNotDB(Filter):
 class IsAdmin(Filter):
     async def __call__(self, message: Message):
         return message.from_user.id == ADMIN
+
+class GetFilesFilter(Filter):
+    async def __call__(self, message: Message):
+        return message.text in ("Leksika", "Gramatika")

@@ -30,17 +30,18 @@ class Result:
 
 
 class File:
-    def __init__(self, id, file_id, file_name):
+    def __init__(self, id, file_id, file_name, category):
         self.id = id
         self.file_id = file_id
         self.file_name = file_name
+        self.categpry = category
 
 def default_requests():
     c.execute("CREATE TABLE IF NOT EXISTS users (id, name, phone)")
     c.execute("CREATE TABLE IF NOT EXISTS results (id, test_id, ball, time)")
     c.execute("CREATE TABLE IF NOT EXISTS viks (id INTEGER PRIMARY KEY, vik_name)")
     c.execute("CREATE TABLE IF NOT EXISTS quizs (id INTEGER PRIMARY KEY, vik_id, question, op1, op2, op3, op4, op5, op6, tr_op)")
-    c.execute("CREATE TABLE IF NOT EXISTS files (id INTEGER PRIMARY KEY, file_id, file_name)")
+    c.execute("CREATE TABLE IF NOT EXISTS files (id INTEGER PRIMARY KEY, file_id, file_name, category)")
 
     conn.commit()
 
@@ -61,8 +62,8 @@ def add_result(id, test_id, ball, time):
     c.execute("INSERT INTO results VALUES (?, ?, ?, ?)", (id, test_id, ball, time))
     conn.commit()
 
-def add_file(file_id, file_name):
-    c.execute("INSERT INTO files (file_id, file_name) VALUES (?, ?)", (file_id, file_name))
+def add_file(file_id, file_name, category):
+    c.execute("INSERT INTO files (file_id, file_name, category) VALUES (?, ?, ?)", (file_id, file_name, category))
     conn.commit()
 
 def get_vik(id):
@@ -82,8 +83,8 @@ def get_result(id, test_id):
     if data: return Result(data[0], data[1], data[2], data[3])
 
 def get_file(id):
-    data = c.execute("SELECT id, file_id, file_name FROM files WHERE id=?", (id, )).fetchone()
-    if data: return File(data[0], data[1], data[2])
+    data = c.execute("SELECT id, file_id, file_name, category FROM files WHERE id=?", (id, )).fetchone()
+    if data: return File(data[0], data[1], data[2], data[3])
 
 def get_users():
     return c.execute("SELECT id, name, phone FROM users").fetchall()
@@ -120,11 +121,11 @@ def get_file_names():
 def get_viks_for_reyting(user_id):
     return list(set(c.execute("SELECT test_id FROM results WHERE id=?", (user_id, )).fetchall()))
 
-def get_files_range(start, stop):
-    return c.execute("SELECT id, file_name FROM files WHERE start <= id AND id <= stop").fetchall()
+def get_files_category(category):
+    return c.execute("SELECT id, file_id, file_name, category FROM files WHERE category=?", (category, )).fetchall()
 
 def get_files():
-    return c.execute("SELECT id, file_id, file_name FROM files").fetchall()
+    return c.execute("SELECT id, file_id, file_name, category FROM files").fetchall()
 
 def del_quiz(quiz_id):
     c.execute("DELETE FROM quizs WHERE id=?", (quiz_id, ))
